@@ -1,0 +1,66 @@
+<VirtualHost *:80>
+    ServerName dev.andremottier.com
+    Redirect permanent / {RedirectPermanent}
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName {ServerName}
+    ServerAdmin me@andremottier.com
+
+    WSGIDaemonProcess  {WSGIDaemonProcessName} processes=5 user=www-data group=www-data python-home=/var/www/andremottier.com
+    WSGIScriptAlias / /var/www/dev.andremottier.com/app.wsgi
+    WSGIProcessGroup wsgi-dev-andremottier
+    WSGIApplicationGroup %{GLOBAL}
+
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    SSLCertificateFile /etc/letsencrypt/live/andremottier.com-0001/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/andremottier.com-0001/privkey.pem
+
+    ErrorLog {ErrorLogFilePath}
+    CustomLog {CustomLogFile} combined
+
+    Alias /css/bulma "{AliasCssBulmaDirectoryPath}"
+    <Directory "/var/www/dev.andremottier.com/lib/node_modules/bulma/css">
+        Options +Indexes
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    Alias /static/chat_server_php "{AliasStaticChatServerPhpDirectoryPath}"
+    <Directory "{AliasStaticChatServerPhpDirectoryPath}">
+        Options +Indexes
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    Alias /css "{AliasCssDirectoryPath}"
+    <Directory "{AliasCssDirectoryPath}">
+        Options +Indexes
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    Alias /js "{AliasJsDirectoryPath}"
+    <Directory "{AliasJsDirectoryPath}">
+        Options +Indexes
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    Alias /favicon.ico "{AliasFaviconDirectoryPath}"
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI}  ^/wss            [NC]
+    RewriteRule /(.*)           ws://127.0.0.1:9002/$1 [P,L]
+
+    SSLProxyEngine On
+    ProxyPass /wss/ https://127.0.01:9002/
+    ProxyPassReverse /wss/ https://127.0.0.1:9002/
+    ProxyRequests off
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
