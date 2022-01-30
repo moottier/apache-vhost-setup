@@ -1,0 +1,11 @@
+GLOBAL:
+    RE_PATTERN: ({\s*.*?\s*})
+    FOUT_KEY: SitesAvailableFilePath
+www.andremottier.com:
+    SitesAvailableFilePath: /var/www/dev.andremottier.com/lib/scripts/apache-setup/test/www.andremottier.com
+    RedirectPermanent: https://www.andremottier.com
+    ServerName: dev.andremottier.com
+dev.andremottier.com:
+    SitesAvailableFilePath: /var/www/dev.andremottier.com/lib/scripts/apache-setup/test/dev.andremottier.com
+    RedirectPermanent: https://dev.andremottier.com
+    ServerName: dev.andremottier.com

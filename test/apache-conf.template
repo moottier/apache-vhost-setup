@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+    ServerName {ServerName}
+    Redirect permanent / {RedirectPermanent}
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName {ServerName}
+    ServerAdmin me@andremottier.com
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
