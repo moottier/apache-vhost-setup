@@ -13,7 +13,7 @@ key in the YAML file.
 
 The **GLOBAL** key is required to have both an **RE_PATTERN** and **FOUT_KEY** as children. 
 
-**RE_PATTERN** key holds the regex value used to find values to be substituted.  
+**RE_PATTERN** key holds a regex used to locate values in the template file to be substituted.  
 
 **FOUT_KEY** maps to a **SITE** key whose value defines the file path where that site's config will be written. Change this value if you want to store output paths in another key
 
