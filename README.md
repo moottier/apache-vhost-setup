@@ -17,9 +17,8 @@ The **GLOBAL** key is required to have both an **RE_PATTERN** and **FOUT_KEY** a
 
 **FOUT_KEY** maps to a **SITE** key whose value defines the file path where that site's config will be written. Change this value if you want to store output paths in another key
 
+<INS>Example:</INS>  
 The following will use regex pattern `({\s*.*?\s*})` to find matches in **TEMPLATE_PATH**. If the script is called with **SITE** `www.andremottier.com`, then output is written to `/etc/apache2/sites-available/www.andremottier.com.conf`.  
-
-Example:
 
 ```yml
 GLOBAL:
