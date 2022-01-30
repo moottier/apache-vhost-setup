@@ -40,4 +40,4 @@ The mattern matched for substitution can be set by changing the GLOBAL.RE_PATTER
 The RE_PATTERN value must be valid regex.
 
 # TESTS  
-Run python -m unittest test.py
+Run python -m unittest test/test.py
