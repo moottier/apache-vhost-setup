@@ -8,12 +8,14 @@
 make_apache_conf loads the template file at **TEMPLATE_PATH** and the YAML file at **YML_PATH**. Values in the template file are substituted with values in the YAML file for the given **SITE** to give a substituted file. The substituted file is written to a path specified in the YAML file.  
 
 ## YML Setup  
-A top-level GLOBAL key holds parsing settings used for all sites. Site-level settings are defined in any other top-level key. Any **SITE** passed in a call to make_apache_conf must be a top-level 
+A top-level **GLOBAL** key is required for execution, although it may be empty. holds parsing settings used for all sites. Site-level settings are defined in any other top-level key. Any **SITE** passed in a call to make_apache_conf must be a top-level 
 key in the YAML file.
 
-The RE_PATTERN key holds the regex value used to find values to be substituted.  
+The **GLOBAL** key is required to have both an **RE_PATTERN** and **FOUT_KEY** as children. 
 
-The FOUT_KEY maps to a **SITE** key whose value defines the file path where that site's config will be written. Change this value if you want to store output paths in another key
+**RE_PATTERN** key holds the regex value used to find values to be substituted.  
+
+**FOUT_KEY** maps to a **SITE** key whose value defines the file path where that site's config will be written. Change this value if you want to store output paths in another key
 
 The following will use regex pattern `({\s*.*?\s*})` to find matches in **TEMPLATE_PATH**. If the script is called with **SITE** `www.andremottier.com`, then output is written to `/etc/apache2/sites-available/www.andremottier.com.conf`.  
 
