@@ -61,7 +61,8 @@ class TextFileSubstitutor:
         for tk in tokens:
             key = self.get_token_key(tk)
             val = self.tk_mapper(key)
-            line = line.replace(tk, val)
+            if val:
+                line = line.replace(tk, val)
         return line
 
     def _write_to_stream(self, fout: io.TextIOWrapper):
@@ -81,7 +82,6 @@ def validateYaml(yml):
 def getGlobalSettings(yml):
     return yml['GLOBAL']
 
-
 def main(template_path: str, yml_path: str, site: str):
     yml = YamlFileReader(yml_path).getYamlSafe()
 
@@ -94,7 +94,7 @@ def main(template_path: str, yml_path: str, site: str):
         config_path = params[fout_key]
 
         finder = re.compile(pattern).findall
-        mapper = lambda match: params[match]        
+        mapper = lambda match: (match in params) and params[match]     
         with open(template_path, 'r') as fin:
             TextFileSubstitutor(fin, finder, mapper).write(config_path)
     else:
